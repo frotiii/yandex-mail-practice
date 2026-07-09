@@ -30,6 +30,9 @@ public class LoginPage extends BasePage {
     private final Button passwordNextButton =
             Button.byXpath("//button[@data-testid='password-next']");
 
+    private final Button passwordLoginButton =
+            Button.byXpath("//button[@data-testid='password-btn']");
+
     private final Button webauthnLaterButton =
             Button.byXpath("//button[@data-testid='webauthn-reg-later-button']");
 
@@ -64,6 +67,12 @@ public class LoginPage extends BasePage {
         log.info("Переходим к вводу пароля");
         nextLoginButton.click();
         sleep(1000);
+
+        if (passwordLoginButton.isExists()) {
+            log.info("Выбираем вход с паролем");
+            passwordLoginButton.click();
+            sleep(1000);
+        }
 
         log.info("Вводим пароль");
         passwordInput.fill(password);
