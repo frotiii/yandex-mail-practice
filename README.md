@@ -8,6 +8,10 @@
 
 Хведынич Варвара, гр 4381 ( тимлид ) 
 
+
+**Дублирование ссылки на чеклист** https://docs.google.com/spreadsheets/d/1WpAZA-o5Dqu5IFQTQ3Xr1C8g7-nfC8r4Vm8elHuUIsY/edit?usp=sharing
+
+
 **Список тестов:**
 
 1. Проверка создания и отправки письма:
