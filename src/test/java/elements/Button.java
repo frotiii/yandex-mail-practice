@@ -11,4 +11,9 @@ public class Button extends BaseElement {
     public static Button byXpath(String xpath) {
         return new Button(xpath);
     }
+
+    public void hover() {
+        baseElement.hover();
+    }
+
 }

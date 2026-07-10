@@ -10,6 +10,8 @@ public class InboxPage extends BasePage {
     private final Button draftsButton = Button.byXpath("//a[@href='#draft']");
     private final Button sentButton = Button.byXpath("//a[@href='#sent']");
 
+    private final Button deleteButton = Button.byXpath("//button[@data-id='delete']");
+
     // тест 9
     private final Button addFolderButton =
             Button.byXpath("//button[@aria-label='Создать папку']");
@@ -47,6 +49,9 @@ public class InboxPage extends BasePage {
         return sentButton.isDisplayed();
     }
 
+    public boolean isLetterPresent(String subject) {
+        return elements.Label.byTitle(subject).isDisplayed();
+    }
     // тест 9
     public InboxPage clickAddFolder() {
         addFolderButton.click();
@@ -81,6 +86,21 @@ public class InboxPage extends BasePage {
     public FolderPage openFolder(String name) {
         Button.byXpath(String.format(FOLDER, name)).click();
         return new FolderPage();
+    }
+
+    public InboxPage clickDelete() {
+        deleteButton.click();
+        return this;
+    }
+
+    public TrashPage openTrash() {
+        Button.byXpath("//a[@href='#trash']").click();
+        return new TrashPage();
+    }
+
+    public InboxPage openInbox() {
+        Button.byXpath("//a[@href='#tabs/relevant']").click();
+        return this;
     }
 
 
