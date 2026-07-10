@@ -11,7 +11,7 @@ public class ComposePage extends BasePage {
     private final Editor body = Editor.byClass("cke_editable");
 
     private final Button closeButton = Button.byXpath("//button[@aria-label='Закрыть']");
-    private final Button sendButton = Button.byXpath("//button[contains(@class, 'Button2_view_action')]");
+    private final Button sendButton = Button.byXpath("//button[contains(@class, 'Button2 Button2_view_action Button2_size_l')]");
     private final Input fileInput = Input.byXpath("//input[contains(@class, 'qa-Compose-FileInput2')]");
 
     public ComposePage fillTo(String email) {

@@ -1,8 +1,10 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.AfterEach;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -54,5 +56,11 @@ public class BaseTest {
         inboxPage = loginPage.login(LOGIN, PASSWORD);
 
         logger.info("Авторизация успешна");
+    }
+
+    @AfterEach
+    public void closeBrowser(){
+        Selenide.closeWebDriver();
+        logger.info("Браузер закрыт");
     }
 }
