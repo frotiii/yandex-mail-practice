@@ -32,4 +32,9 @@ public class Input extends BaseElement {
     public static Input byXpath(String xpath) {
         return new Input(INPUT_BY_XPATH, xpath);
     }
+
+    //тест 7
+    public void pressEnter() {
+        baseElement.pressEnter();
+    }
 }

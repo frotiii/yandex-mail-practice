@@ -21,6 +21,12 @@ public class BaseTest {
     protected static String LOGIN;
     protected static String PASSWORD;
 
+    protected static String REPLY_LOGIN;
+    protected static String REPLY_PASSWORD;
+
+    protected static String FORWARD_LOGIN;
+    protected static String FORWARD_PASSWORD;
+
     protected InboxPage inboxPage;
 
     static {
@@ -32,6 +38,12 @@ public class BaseTest {
 
             LOGIN = props.getProperty("yandex.login");
             PASSWORD = props.getProperty("yandex.password");
+
+            REPLY_LOGIN = props.getProperty("yandex.reply.login");
+            REPLY_PASSWORD = props.getProperty("yandex.reply.password");
+
+            FORWARD_LOGIN = props.getProperty("yandex.forward.login");
+            FORWARD_PASSWORD = props.getProperty("yandex.forward.password");
 
         } catch (Exception e) {
             throw new RuntimeException("Не удалось загрузить credentials.properties", e);

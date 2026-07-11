@@ -14,6 +14,10 @@ public class ComposePage extends BasePage {
     private final Button sendButton = Button.byXpath("//button[contains(@class, 'Button2 Button2_view_action Button2_size_l')]");
     private final Input fileInput = Input.byXpath("//input[contains(@class, 'qa-Compose-FileInput2')]");
 
+    // тест 4
+    private final Button recipient = Button.byXpath("//*[@data-email='deikinaang0707@yandex.ru']" +
+            " | //div[@aria-label='Кому']" + "[contains(.,'deikinaang0707@yandex.ru')]");
+
     public ComposePage fillTo(String email) {
         to.fill(email);
         return this;
@@ -58,4 +62,14 @@ public class ComposePage extends BasePage {
         return this;
     }
 
+    // тест 3
+    public boolean isRecipientDisplayed() {
+        return recipient.isDisplayed();
+    }
+
+    // тест 4
+    public ComposePage addBodyText(String text) {
+        body.append(text);
+        return this;
+    }
 }

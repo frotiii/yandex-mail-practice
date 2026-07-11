@@ -4,6 +4,8 @@ import elements.Button;
 import elements.Input;
 import elements.Checkbox;
 
+import static com.codeborne.selenide.Selenide.$$x;
+
 public class InboxPage extends BasePage {
 
     private final Button composeButton = Button.byXpath("//button[@aria-label='Написать']");
@@ -11,6 +13,10 @@ public class InboxPage extends BasePage {
     private final Button sentButton = Button.byXpath("//a[@href='#sent']");
 
     private final Button deleteButton = Button.byXpath("//button[@data-id='delete']");
+
+    // тест 7
+    private final Input searchInput = Input.byXpath("//input[@placeholder='Поиск' or @aria-label='Поиск']");
+    private final Button searchButton = Button.byXpath("//button[@aria-label='Поиск']");
 
     // тест 9
     private final Button addFolderButton =
@@ -33,6 +39,18 @@ public class InboxPage extends BasePage {
             "//span[@title='%s']" +
                     "/ancestor::div[contains(@class,'MessageListItem__root')]" +
                     "//div[contains(@class,'MessageListItem__checkbox')]";
+
+    // тест 3
+    private static final String LETTER_BY_SUBJECT =
+            "//span[@title='%s']";
+
+    // тест 7
+    private static final String SEARCH_RESULT_BY_SUBJECT =
+            "//div[contains(@class,'MessageListItem__root')]" +
+                    "[.//span[@title='%s']]";
+
+    private static final String SEARCH_RESULT_ROWS =
+            "//div[contains(@class,'MessageListItem__root')]";
 
     public ComposePage clickCompose() {
         composeButton.click();
@@ -103,5 +121,36 @@ public class InboxPage extends BasePage {
         return this;
     }
 
+    //тест 3
+    public MailPage openLetter(String subject) {
+        Button.byXpath(String.format(LETTER_BY_SUBJECT, subject)).click();
+        return new MailPage();
+    }
 
+    public MailPage openSent() {
+        sentButton.click();
+        return new MailPage();
+    }
+
+    // тест 7
+    public InboxPage fillSearch(String keyword) {
+        searchInput.fill(keyword);
+        return this;
+    }
+
+    public boolean isSearchResultPresent(String subject) {
+        return Button.byXpath(
+                String.format(SEARCH_RESULT_BY_SUBJECT, subject)
+        ).isDisplayed();
+    }
+
+    public InboxPage openSearch() {
+        searchButton.click();
+        return this;
+    }
+
+    public InboxPage submitSearch() {
+        searchInput.pressEnter();
+        return this;
+    }
 }

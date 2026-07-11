@@ -24,4 +24,6 @@ public class Editor extends BaseElement {
         baseElement.setValue(text);
     }
 
+    // тест 4
+    public void append(String text) { baseElement.sendKeys(text); }
 }
