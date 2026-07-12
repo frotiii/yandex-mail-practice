@@ -33,8 +33,8 @@ public class VHTest extends BaseTest {
         System.out.println("Нажата кнопка 'Отправить'");
         sleep(1000);
 
-        assertThat(inboxPage.isInboxDisplayed()).isTrue();
-        logger.info("6. Проверка: письмо отправлено (открылись Входящие)");
+        inboxPage.openSent();
+        assertThat(inboxPage.isLetterPresent("Это письмо отправлено без темы")).isTrue();
         sleep(2000);
 
 
@@ -68,8 +68,8 @@ public class VHTest extends BaseTest {
         System.out.println("Нажата кнопка 'Отправить'");
         sleep(2000);
 
-        assertThat(inboxPage.isInboxDisplayed()).isTrue();
-        logger.info("6. Проверка: письмо отправлено (открылись Входящие)");
+        inboxPage.openSent();
+        assertThat(inboxPage.isLetterPresent("Письмо с вложением")).isTrue();
         sleep(2000);
 
 
