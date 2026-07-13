@@ -135,8 +135,4 @@ public class InboxPage extends BasePage {
         searchButton.click();
         return this;
     }
-
-    public void submitSearch() {
-        searchInput.pressEnter();
-    }
 }

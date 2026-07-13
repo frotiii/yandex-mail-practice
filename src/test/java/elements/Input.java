@@ -21,11 +21,6 @@ public class Input extends BaseElement {
         baseElement.setValue(value);
     }
 
-    //тест 7
-    public void pressEnter() {
-        baseElement.pressEnter();
-    }
-
     // тест 4
     public void append(String text) { baseElement.sendKeys(text); }
 

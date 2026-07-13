@@ -56,5 +56,4 @@ public class MailPage extends BasePage {
         forwardButton.click();
         return new ComposePage();
     }
-
 }

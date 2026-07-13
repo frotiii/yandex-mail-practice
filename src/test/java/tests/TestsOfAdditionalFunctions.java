@@ -6,7 +6,6 @@ import pages.DraftsPage;
 import pages.FolderPage;
 
 import static com.codeborne.selenide.Selenide.screenshot;
-import static com.codeborne.selenide.Selenide.sleep;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestsOfAdditionalFunctions extends BaseTest {
@@ -14,23 +13,24 @@ public class TestsOfAdditionalFunctions extends BaseTest {
     private static final String SEARCH_KEYWORD = "Тестирование";
     private static final String SEARCH_SUBJECT = "Важное сообщение по проекту Тестирование";
 
+    // Тест поиска письма по ключевому слову в теме. Открывается строка поиска и вводится запрос по теме письма.
+    // Поиск выполняется по заданному ключевому слову с параметром "subject:". После выполнения поиска ожидается
+    // отображение результатов. В конце теста осуществляется проверка наличия в результатах поиска письма с ожидаемой темой.
     @Test
     public void Test7() {
-        logger.info("=== Тест 3: Проверка поиска письма по ключевому слову в теме ===");
+        logger.info("Тест 7: Проверка поиска письма по ключевому слову в теме");
 
-        logger.info("Шаг 1: Вводим в строку поиска '{}'", SEARCH_KEYWORD);
+        logger.info("1. Вводим в строку поиска '{}'", SEARCH_KEYWORD);
         inboxPage.openSearch().fillSearch("subject:" + SEARCH_KEYWORD);
 
-        logger.info("Шаг 2: Запускаем поиск клавишей Enter");
-        inboxPage.submitSearch();
+        logger.info("2. Запускаем поиск клавишей Enter");
 
-        logger.info("Шаг 3: Ожидаем результаты поиска");
-        sleep(3000);
+        logger.info("3. Ожидаем результаты поиска");
 
         assertThat(inboxPage.isSearchResultPresent(SEARCH_SUBJECT))
                 .as("В результатах поиска должно отображаться письмо с темой '%s'", SEARCH_SUBJECT).isTrue();
 
-        logger.info("=== Тест 3 успешно завершён ===");
+        logger.info("Тест 7 завершён успешно");
     }
 
     // Тест создания папки и перемещения письма.

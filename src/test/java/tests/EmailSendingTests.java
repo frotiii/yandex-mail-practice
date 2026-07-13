@@ -6,7 +6,6 @@ import pages.MailPage;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Selenide.sleep;
 import static com.codeborne.selenide.Selenide.screenshot;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -85,110 +84,100 @@ public class EmailSendingTests extends BaseTest {
         logger.info("ТЕСТ 2 ЗАВЕРШЁН УСПЕШНО");
     }
 
+    // Тест ответа на полученное письмо. Открывается папка "Входящие" и по теме ищется необходимое письмо.
+    // После открытия письма проверяется корректность отправителя, выполняется переход к ответу на письмо
+    // и проверяется автоматическое заполнение полей "Кому" и "Тема". В тело ответного письма вводится текст.
+    // После отправки осуществляется переход в папку "Отправленные" и по теме письма проверяется наличие письма-ответа.
     @Test
     public void Test3() {
-        logger.info("=== Тест 1: Проверка ответа на полученное письмо ===");
+        logger.info("Тест 3: Проверка ответа на полученное письмо");
 
-        logger.info("Шаг 1: Открываем папку 'Входящие'");
+        logger.info("1. Открываем папку 'Входящие'");
         inboxPage.openInbox();
-
-        logger.info( "Шаг 2-3: Ищем письмо от {} с темой '{}'", SENDER_EMAIL, SUBJECT );
+        logger.info( "Ищем письмо от {} с темой '{}'", SENDER_EMAIL, SUBJECT );
 
         MailPage mailPage = inboxPage.openLetter(SUBJECT);
-        logger.info("Проверка: письмо открыто и получено от нужного отправителя");
-
         assertThat(mailPage.isSenderCorrect()).as("Письмо должно быть получено от адреса '" + SENDER_EMAIL + "'")
                 .isTrue();
 
-        logger.info("Шаг 4: Нажимаем кнопку 'Ответить'");
+        logger.info("4. Нажимаем кнопку 'Ответить'");
         ComposePage composePage = mailPage.clickReply();
 
-        logger.info("Проверка автозаполнения полей ответного письма");
-
-        assertThat(composePage.isRecipientDisplayed())
-                .as("Поле 'Кому' должно содержать адрес отправителя")
+        logger.info("Проверяем автозаполнение полей ответного письма");
+        assertThat(composePage.isRecipientDisplayed()).as("Поле 'Кому' должно содержать адрес отправителя")
                 .isTrue();
 
-        assertThat(composePage.getSubject())
-                .as("Поле 'Тема' должно содержать тему ответного письма")
+        assertThat(composePage.getSubject()).as("Поле 'Тема' должно содержать тему ответного письма")
                 .isEqualTo(REPLY_SUBJECT);
 
-        logger.info("Шаг 5: Вводим текст ответа");
+        logger.info("5. Вводим текст ответа");
         composePage.fillBody(REPLY_TEXT);
-
-        assertThat(composePage.getBody())
-                .as("Текст ответа должен отображаться в теле письма")
+        assertThat(composePage.getBody()).as("Текст ответа должен отображаться в теле письма")
                 .contains(REPLY_TEXT);
 
-        logger.info("Шаг 6: Отправляем письмо");
+        logger.info("6. Отправляем письмо");
         inboxPage = composePage.clickSend();
-        sleep(5000);
 
-        logger.info("Шаг 7: Открываем папку 'Отправленные'");
+        logger.info("7. Открываем папку 'Отправленные'");
         MailPage sentPage = inboxPage.openSent();
-        sleep(3000);
 
         assertThat(sentPage.isLetterPresent(SUBJECT))
                 .as("Письмо-ответ с темой '%s' должно находиться в папке 'Отправленные'", SUBJECT)
                 .isTrue();
 
-        logger.info("=== Тест 1 успешно завершён ===");
+        logger.info("Тест 3 завершён успешно");
     }
 
-
+    // Тест пересылки полученного письма третьему пользователю. Открывается папка "Входящие" и по теме ищется необходимое письмо.
+    // После открытия письма проверяется корректность адреса отправителя, выполняется переход к пересылке письма
+    // и проверяется, что поле "Кому" не заполнено автоматически, а тема содержит префикс "Fwd:" и тему исходного письма.
+    // В поле "Кому" вводится адрес третьего пользователя, а в тело письма добавляется комментарий.
+    // После отправки осуществляется переход в папку "Отправленные" и по теме письма проверяется наличие пересланного письма.
     @Test
     public void Test4() {
-        logger.info("=== Тест 2: Проверка пересылки полученного письма третьему пользователю ===");
+        logger.info("Тест 4: Проверка пересылки полученного письма третьему пользователю");
 
-        logger.info("Шаг 1: Открываем папку 'Входящие'");
+        logger.info("1. Открываем папку 'Входящие'");
         inboxPage.openInbox();
 
-        logger.info( "Шаг 2-3: Ищем письмо от {} с темой '{}'", FORWARD_SENDER_EMAIL, FORWARD_SUBJECT );
+        logger.info( "Ищем письмо от {} с темой '{}'", FORWARD_SENDER_EMAIL, FORWARD_SUBJECT );
         MailPage mailPage = inboxPage.openLetter(FORWARD_SUBJECT);
-        logger.info( "Проверка: письмо открыто и получено от нужного отправителя" );
 
         assertThat(mailPage.isSenderCorrect(FORWARD_SENDER_EMAIL))
                 .as("Письмо должно быть получено от адреса 'FORWARD_SENDER_EMAIL'").isTrue();
 
-        logger.info("Шаг 4: Нажимаем кнопку 'Переслать'");
+        logger.info("4. Нажимаем кнопку 'Переслать'");
         ComposePage composePage = mailPage.clickForward();
-        logger.info( "Проверка: поле 'Кому' не заполнено автоматически" );
+        logger.info( "Проверяем, что поле 'Кому' не заполнено автоматически" );
         assertThat(composePage.getTo()).as("При пересылке поле 'Кому' должно быть пустым").isBlank();
-        logger.info( "Проверка темы пересылаемого письма" );
+        logger.info( "Проверяем тему пересылаемого письма" );
 
-        assertThat(composePage.getSubject())
-                .as("Поле 'Тема' должно начинаться с префикса 'Fwd:'").startsWith("Fwd:");
-
+        assertThat(composePage.getSubject()).as("Поле 'Тема' должно начинаться с префикса 'Fwd:'").startsWith("Fwd:");
         assertThat(composePage.getSubject())
                 .as("Поле 'Тема' должно содержать тему исходного письма").contains(FORWARD_SUBJECT);
 
-        logger.info( "Шаг 5: Вводим адрес получателя {}", FORWARD_RECIPIENT );
+        logger.info( "5. Вводим адрес получателя {}", FORWARD_RECIPIENT );
         composePage.fillTo(FORWARD_RECIPIENT);
-
         assertThat(composePage.getTo())
                 .as("Поле 'Кому' должно содержать адрес получателя").containsIgnoringCase(FORWARD_RECIPIENT);
 
-        logger.info( "Шаг 6: Добавляем комментарий к пересылаемому письму" );
+        logger.info( "6. Добавляем комментарий к пересылаемому письму" );
         composePage.addBodyText(FORWARD_TEXT);
+        assertThat(composePage.getBody()).as("Комментарий должен отображаться в теле письма").contains(FORWARD_TEXT);
 
-        assertThat(composePage.getBody())
-                .as("Комментарий должен отображаться в теле письма").contains(FORWARD_TEXT);
-
-        logger.info("Шаг 7: Отправляем письмо");
+        logger.info("7. Отправляем письмо");
         inboxPage = composePage.clickSend();
-        sleep(5000);
         logger.info("Проверяем письмо в папке 'Отправленные'");
         MailPage sentPage = inboxPage.openSent();
-        sleep(3000);
 
         assertThat(sentPage.isForwardLetterPresent(FORWARD_REPLY_SUBJECT))
                 .as("Пересланное письмо с темой '%s' должно находиться в папке 'Отправленные'",
                         FORWARD_REPLY_SUBJECT).isTrue();
 
-        logger.info("=== Тест 2 успешно завершён ===");
+        logger.info("Тест 4 завершён успешно");
     }
 
-    //Тест отправкуи письма с пустой темой. Поле тема ничем не заполняется, остальные части письма заполняются
+    //Тест отправки письма с пустой темой. Поле тема ничем не заполняется, остальные части письма заполняются
     //всеми нужными данными. В конце теста осущеставляется проверка: происходит переход на страницу отправленных писем
     //и по тексту тела письма оно ищется на странице
     @Test
@@ -216,5 +205,4 @@ public class EmailSendingTests extends BaseTest {
 
         logger.info("ТЕСТ 8 ЗАВЕРШЁН УСПЕШНО");
     }
-
 }
