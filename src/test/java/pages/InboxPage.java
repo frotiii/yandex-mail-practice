@@ -4,8 +4,6 @@ import elements.Button;
 import elements.Input;
 import elements.Checkbox;
 
-import static com.codeborne.selenide.Selenide.$$x;
-
 public class InboxPage extends BasePage {
 
     private final Button composeButton = Button.byXpath("//button[@aria-label='Написать']");
@@ -49,8 +47,6 @@ public class InboxPage extends BasePage {
             "//div[contains(@class,'MessageListItem__root')]" +
                     "[.//span[@title='%s']]";
 
-    private static final String SEARCH_RESULT_ROWS =
-            "//div[contains(@class,'MessageListItem__root')]";
 
     public ComposePage clickCompose() {
         composeButton.click();
@@ -71,34 +67,28 @@ public class InboxPage extends BasePage {
         return elements.Label.byTitle(subject).isDisplayed();
     }
     // тест 9
-    public InboxPage clickAddFolder() {
+    public void clickAddFolder() {
         addFolderButton.click();
-        return this;
     }
 
-    public InboxPage fillFolderName(String name) {
+    public void fillFolderName(String name) {
         folderName.fill(name);
-        return this;
     }
 
-    public InboxPage clickCreateFolder() {
+    public void clickCreateFolder() {
         createFolderButton.click();
-        return this;
     }
 
-    public InboxPage selectLetter(String subject) {
-        Checkbox.byXpath(String.format(LETTER_CHECKBOX, subject)).click();
-        return this;
+    public void selectLetter(String subject) {
+        Checkbox.byXpath(String.format(LETTER_CHECKBOX, subject)).check();
     }
 
-    public InboxPage clickMoveToFolder() {
+    public void clickMoveToFolder() {
         moveToFolderButton.click();
-        return this;
     }
 
-    public InboxPage selectFolder(String name) {
+    public void selectFolder(String name) {
         Button.byXpath(String.format(FOLDER_IN_MENU, name)).click();
-        return this;
     }
 
     public FolderPage openFolder(String name) {
@@ -106,9 +96,8 @@ public class InboxPage extends BasePage {
         return new FolderPage();
     }
 
-    public InboxPage clickDelete() {
+    public void clickDelete() {
         deleteButton.click();
-        return this;
     }
 
     public TrashPage openTrash() {
@@ -116,9 +105,8 @@ public class InboxPage extends BasePage {
         return new TrashPage();
     }
 
-    public InboxPage openInbox() {
+    public void openInbox() {
         Button.byXpath("//a[@href='#tabs/relevant']").click();
-        return this;
     }
 
     //тест 3
@@ -133,9 +121,8 @@ public class InboxPage extends BasePage {
     }
 
     // тест 7
-    public InboxPage fillSearch(String keyword) {
+    public void fillSearch(String keyword) {
         searchInput.fill(keyword);
-        return this;
     }
 
     public boolean isSearchResultPresent(String subject) {
@@ -149,8 +136,7 @@ public class InboxPage extends BasePage {
         return this;
     }
 
-    public InboxPage submitSearch() {
+    public void submitSearch() {
         searchInput.pressEnter();
-        return this;
     }
 }

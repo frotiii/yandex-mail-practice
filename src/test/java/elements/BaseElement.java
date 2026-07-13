@@ -13,14 +13,6 @@ public class BaseElement {
         this.baseElement = element;
     }
 
-    protected static SelenideElement findByXpath(String xpath) {
-        return $x(xpath);
-    }
-
-    public void click() {
-        baseElement.shouldBe(visible).click();
-    }
-
     public String getText() {
         return baseElement.shouldBe(visible).getText();
     }
@@ -35,5 +27,9 @@ public class BaseElement {
 
     public boolean isExists() {
         return baseElement.exists();
+    }
+
+    protected static SelenideElement findByXpath(String xpath) {
+        return $x(xpath);
     }
 }

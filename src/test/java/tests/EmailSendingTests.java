@@ -3,7 +3,6 @@ package tests;
 import org.junit.jupiter.api.Test;
 import pages.ComposePage;
 import pages.MailPage;
-import pages.TrashPage;
 
 import java.io.File;
 
@@ -84,7 +83,6 @@ public class EmailSendingTests extends BaseTest {
         assertThat(inboxPage.isLetterPresent("Письмо с вложением")).isTrue();
 
         logger.info("ТЕСТ 2 ЗАВЕРШЁН УСПЕШНО");
-        System.out.println("ТЕСТ 2 ПРОШЕЛ");
     }
 
     @Test
@@ -217,7 +215,6 @@ public class EmailSendingTests extends BaseTest {
         assertThat(inboxPage.isLetterPresent("Это письмо отправлено без темы")).isTrue();
 
         logger.info("ТЕСТ 8 ЗАВЕРШЁН УСПЕШНО");
-        System.out.println("ТЕСТ 8 ПРОШЕЛ");
     }
 
 }

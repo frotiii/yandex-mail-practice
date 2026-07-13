@@ -7,7 +7,7 @@ import static com.codeborne.selenide.Selenide.screenshot;
 import static com.codeborne.selenide.Selenide.sleep;
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class EmailDelitionTests extends BaseTest {
+public class EmailDeletionTests extends BaseTest {
     @Test
     public void test5_deleteEmail() {
         logger.info("Тест 5. Проверка удаления письма");

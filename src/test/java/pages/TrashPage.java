@@ -15,27 +15,23 @@ public class TrashPage extends BasePage {
     private final Button folderMenuButton = Button.byXpath("//div[@data-testid='toolbar_menu_action'][@id='folder']");
     private final Button inboxFolderItem = Button.byXpath("//div[@data-testid='folders-menu_tree_item'][@aria-label='Входящие']");
 
-    public TrashPage selectLetter(String subject) {
-        Checkbox.byXpath(String.format(LETTER_CHECKBOX, subject)).click();
-        return this;
+    public void selectLetter(String subject) {
+        Checkbox.byXpath(String.format(LETTER_CHECKBOX, subject)).check();
     }
 
     public boolean isLetterPresent(String subject) {
         return Label.byTitle(subject).isDisplayed();
     }
 
-    public TrashPage clickMore() {
+    public void clickMore() {
         moreButton.click();
-        return this;
     }
 
-    public TrashPage hoverFolderMenu() {
+    public void hoverFolderMenu() {
         folderMenuButton.hover();
-        return this;
     }
 
-    public TrashPage selectInboxFolder() {
+    public void selectInboxFolder() {
         inboxFolderItem.click();
-        return this;
     }
 }

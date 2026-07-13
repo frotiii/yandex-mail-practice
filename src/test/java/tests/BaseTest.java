@@ -50,7 +50,6 @@ public class BaseTest {
         }
     }
 
-
     @BeforeAll
     public static void setup() {
         Configuration.browser = "chrome";
@@ -58,7 +57,6 @@ public class BaseTest {
         Configuration.browserSize = "1920x1080";
         Configuration.timeout = 10000;
     }
-
 
     @BeforeEach
     public void login() {
