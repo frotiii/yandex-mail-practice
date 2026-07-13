@@ -6,8 +6,8 @@ import elements.Input;
 
 public class ComposePage extends BasePage {
 
-    private final Input to = Input.byXpath("//div[@aria-label='Кому']");
-    private final Input subject = Input.byName("subject");
+    private final Input toInput = Input.byXpath("//div[@aria-label='Кому']");
+    private final Input subjectInput = Input.byName("subject");
     private final Editor body = Editor.byClass("cke_editable");
 
     private final Button closeButton = Button.byXpath("//button[@aria-label='Закрыть']");
@@ -19,7 +19,7 @@ public class ComposePage extends BasePage {
             " | //div[@aria-label='Кому']" + "[contains(.,'deikinaang0707@yandex.ru')]");
 
     public ComposePage fillTo(String email) {
-        to.fill(email);
+        toInput.fill(email);
         return this;
     }
 
@@ -29,7 +29,7 @@ public class ComposePage extends BasePage {
     }
 
     public ComposePage fillSubject(String value) {
-        subject.fill(value);
+        subjectInput.fill(value);
         return this;
     }
 
@@ -45,11 +45,11 @@ public class ComposePage extends BasePage {
     }
 
     public String getTo() {
-        return to.getText();
+        return toInput.getText();
     }
 
     public String getSubject() {
-        return subject.getValue();
+        return subjectInput.getValue();
     }
 
     public String getBody() {

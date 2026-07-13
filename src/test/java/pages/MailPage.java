@@ -8,7 +8,7 @@ public class MailPage extends BasePage {
             Button.byXpath("//button[@aria-label='Ответить']" +
                     " | //button[.//*[normalize-space(text())='Ответить']]");
 
-    private final Button sender =
+    private final Button senderButton =
             Button.byXpath(
                     "//*[not(self::title)" +
                             " and normalize-space(text())='deikinaang0707@yandex.ru']"
@@ -23,7 +23,7 @@ public class MailPage extends BasePage {
                     "[contains(normalize-space(.),'%s')]";
 
     public boolean isSenderCorrect() {
-        return sender.isDisplayed();
+        return senderButton.isDisplayed();
     }
 
     public ComposePage clickReply() {
