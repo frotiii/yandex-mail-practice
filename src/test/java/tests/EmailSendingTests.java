@@ -56,8 +56,8 @@ public class EmailSendingTests extends BaseTest {
     //В конце теста осущеставляется проверка: происходит переход на страницу отправленных писем
     //и по тексту темы письма оно ищется на странице
     @Test
-    public void test2_SendWithPic(){
-        logger.info("ТЕСТ 2: ОТПРАВКА ПИСЬМА С КАРТИНКОЙ");
+    public void test2_SendWithFile(){
+        logger.info("ТЕСТ 2: ОТПРАВКА ПИСЬМА С ВЛОЖЕННЫМ ФАЙЛОМ");
 
         ComposePage composePage = inboxPage.clickCompose();
         logger.info("1. Нажата кнопка 'Написать'");
