@@ -89,7 +89,7 @@ public class EmailSendingTests extends BaseTest {
     // и проверяется автоматическое заполнение полей "Кому" и "Тема". В тело ответного письма вводится текст.
     // После отправки осуществляется переход в папку "Отправленные" и по теме письма проверяется наличие письма-ответа.
     @Test
-    public void Test3() {
+    public void test3_replyToReceivedEmail() {
         logger.info("Тест 3: Проверка ответа на полученное письмо");
 
         logger.info("1. Открываем папку 'Входящие'");
@@ -100,7 +100,7 @@ public class EmailSendingTests extends BaseTest {
         assertThat(mailPage.isSenderCorrect()).as("Письмо должно быть получено от адреса '" + SENDER_EMAIL + "'")
                 .isTrue();
 
-        logger.info("4. Нажимаем кнопку 'Ответить'");
+        logger.info("2. Нажимаем кнопку 'Ответить'");
         ComposePage composePage = mailPage.clickReply();
 
         logger.info("Проверяем автозаполнение полей ответного письма");
@@ -110,15 +110,15 @@ public class EmailSendingTests extends BaseTest {
         assertThat(composePage.getSubject()).as("Поле 'Тема' должно содержать тему ответного письма")
                 .isEqualTo(REPLY_SUBJECT);
 
-        logger.info("5. Вводим текст ответа");
+        logger.info("3. Вводим текст ответа");
         composePage.fillBody(REPLY_TEXT);
         assertThat(composePage.getBody()).as("Текст ответа должен отображаться в теле письма")
                 .contains(REPLY_TEXT);
 
-        logger.info("6. Отправляем письмо");
+        logger.info("4. Отправляем письмо");
         inboxPage = composePage.clickSend();
 
-        logger.info("7. Открываем папку 'Отправленные'");
+        logger.info("5. Открываем папку 'Отправленные'");
         MailPage sentPage = inboxPage.openSent();
 
         assertThat(sentPage.isLetterPresent(SUBJECT))
@@ -134,7 +134,7 @@ public class EmailSendingTests extends BaseTest {
     // В поле "Кому" вводится адрес третьего пользователя, а в тело письма добавляется комментарий.
     // После отправки осуществляется переход в папку "Отправленные" и по теме письма проверяется наличие пересланного письма.
     @Test
-    public void Test4() {
+    public void test4_forwardReceivedEmail() {
         logger.info("Тест 4: Проверка пересылки полученного письма третьему пользователю");
 
         logger.info("1. Открываем папку 'Входящие'");
@@ -146,7 +146,7 @@ public class EmailSendingTests extends BaseTest {
         assertThat(mailPage.isSenderCorrect(FORWARD_SENDER_EMAIL))
                 .as("Письмо должно быть получено от адреса 'FORWARD_SENDER_EMAIL'").isTrue();
 
-        logger.info("4. Нажимаем кнопку 'Переслать'");
+        logger.info("2. Нажимаем кнопку 'Переслать'");
         ComposePage composePage = mailPage.clickForward();
         logger.info( "Проверяем, что поле 'Кому' не заполнено автоматически" );
         assertThat(composePage.getTo()).as("При пересылке поле 'Кому' должно быть пустым").isBlank();
@@ -156,16 +156,16 @@ public class EmailSendingTests extends BaseTest {
         assertThat(composePage.getSubject())
                 .as("Поле 'Тема' должно содержать тему исходного письма").contains(FORWARD_SUBJECT);
 
-        logger.info( "5. Вводим адрес получателя {}", FORWARD_RECIPIENT );
+        logger.info( "3. Вводим адрес получателя {}", FORWARD_RECIPIENT );
         composePage.fillTo(FORWARD_RECIPIENT);
         assertThat(composePage.getTo())
                 .as("Поле 'Кому' должно содержать адрес получателя").containsIgnoringCase(FORWARD_RECIPIENT);
 
-        logger.info( "6. Добавляем комментарий к пересылаемому письму" );
+        logger.info( "4. Добавляем комментарий к пересылаемому письму" );
         composePage.addBodyText(FORWARD_TEXT);
         assertThat(composePage.getBody()).as("Комментарий должен отображаться в теле письма").contains(FORWARD_TEXT);
 
-        logger.info("7. Отправляем письмо");
+        logger.info("5. Отправляем письмо");
         inboxPage = composePage.clickSend();
         logger.info("Проверяем письмо в папке 'Отправленные'");
         MailPage sentPage = inboxPage.openSent();

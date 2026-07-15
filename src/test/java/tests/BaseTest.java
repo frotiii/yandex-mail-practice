@@ -14,6 +14,7 @@ import pages.LoginPage;
 import java.io.InputStream;
 import java.util.Properties;
 
+// Базовый класс для всех UI-тестов, отвечающий за настройку окружения, авторизацию и очистку
 public class BaseTest {
 
     protected static final Logger logger = LogManager.getLogger(BaseTest.class);
@@ -29,6 +30,7 @@ public class BaseTest {
 
     protected InboxPage inboxPage;
 
+    // Статический блок для загрузки учетных данных из файла credentials.properties при инициализации класса
     static {
         try (InputStream input = BaseTest.class.getClassLoader()
                 .getResourceAsStream("credentials.properties")) {
@@ -50,6 +52,7 @@ public class BaseTest {
         }
     }
 
+    // Глобальная настройка конфигурации Selenide (браузер, размер окна, таймауты) перед запуском всех тестов
     @BeforeAll
     public static void setup() {
         Configuration.browser = "chrome";
@@ -58,6 +61,7 @@ public class BaseTest {
         Configuration.timeout = 10000;
     }
 
+    // Выполняет авторизацию в Яндекс Почте и инициализирует страницу "Входящие" перед каждым отдельным тестом
     @BeforeEach
     public void login() {
         logger.info("Авторизация в Яндекс Почте");
@@ -68,6 +72,7 @@ public class BaseTest {
         logger.info("Авторизация успешна");
     }
 
+    // Закрывает браузер и очищает ресурсы WebDriver после выполнения каждого теста для обеспечения чистоты окружения
     @AfterEach
     public void closeBrowser(){
         Selenide.closeWebDriver();

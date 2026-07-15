@@ -17,7 +17,7 @@ public class TestsOfAdditionalFunctions extends BaseTest {
     // Поиск выполняется по заданному ключевому слову с параметром "subject:". После выполнения поиска ожидается
     // отображение результатов. В конце теста осуществляется проверка наличия в результатах поиска письма с ожидаемой темой.
     @Test
-    public void Test7() {
+    public void test7_searchEmailBySubjectKeyword() {
         logger.info("Тест 7: Проверка поиска письма по ключевому слову в теме");
 
         logger.info("1. Вводим в строку поиска '{}'", SEARCH_KEYWORD);
