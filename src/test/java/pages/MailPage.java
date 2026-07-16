@@ -5,7 +5,6 @@ import elements.Button;
 // Класс, представляющий страницу просмотра содержимого конкретного письма
 public class MailPage extends BasePage {
 
-    // ===== XPath и другие локаторы (константы) =====
     private static final String REPLY_BUTTON_XPATH = "//button[@aria-label='Ответить']" +
             " | //button[.//*[normalize-space(text())='Ответить']]";
 
@@ -25,12 +24,10 @@ public class MailPage extends BasePage {
             "[contains(normalize-space(.),'Fwd:')]" +
             "[contains(normalize-space(.),'%s')]";
 
-    // ===== Элементы страницы =====
     private final Button replyButton = Button.byXpath(REPLY_BUTTON_XPATH);
     private final Button senderButton = Button.byXpath(SENDER_BUTTON_XPATH);
     private final Button forwardButton = Button.byXpath(FORWARD_BUTTON_XPATH);
 
-    // ===== Методы =====
 
     // Проверяет, что отправитель письма соответствует ожидаемому адресу
     public boolean isSenderCorrect() {

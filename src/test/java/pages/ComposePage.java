@@ -23,7 +23,6 @@ public class ComposePage extends BasePage {
     private final Button sendButton = Button.byXpath(SEND_BUTTON_XPATH);
     private final Input fileInput = Input.byXpath(FILE_INPUT_XPATH);
 
-    // тест 4
     private final Button recipient = Button.byXpath(RECIPIENT_XPATH);
 
     // Заполняет поле "Кому" указанным адресом электронной почты

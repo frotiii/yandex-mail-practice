@@ -15,7 +15,6 @@ public class LoginPage extends BasePage {
 
     private static final Logger log = LogManager.getLogger(LoginPage.class);
 
-    // ===== XPath и другие локаторы (константы) =====
     private static final String MORE_BUTTON_XPATH = "//button[@data-testid='split-add-user-more-button']";
     private static final String LOGIN_MODE_BUTTON_XPATH = "//*[@data-testid='menu-option-switchToLogin']";
     private static final String LOGIN_INPUT_XPATH = "//input[@data-testid='text-field-input']";
@@ -26,7 +25,6 @@ public class LoginPage extends BasePage {
     private static final String WEBAUTHN_LATER_BUTTON_XPATH = "//button[@data-testid='webauthn-reg-later-button']";
     private static final String IDENTIFICATION_SKIP_BUTTON_XPATH = "//button[@data-testid='identification-promo-start-skip-btn']";
 
-    // ===== Элементы страницы =====
     private final Button moreButton = Button.byXpath(MORE_BUTTON_XPATH);
     private final Button loginModeButton = Button.byXpath(LOGIN_MODE_BUTTON_XPATH);
     private final Input loginInput = Input.byXpath(LOGIN_INPUT_XPATH);

@@ -10,19 +10,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestsOfAdditionalFunctions extends BaseTest {
 
-    // ===== Тестовые данные (константы) =====
-    // тест 7
     private static final String SEARCH_KEYWORD = "Тестирование";
     private static final String SEARCH_SUBJECT = "Важное сообщение по проекту Тестирование";
 
-    // тест 9
     private static final String FOLDER_NAME = "Проекты";
     private static final String LETTER_TO_MOVE = "Переместить в папку";
 
-    // тест 10
     private static final String DRAFT_SUBJECT = "Черновик";
     private static final String DRAFT_BODY = "Это письмо сохранено как черновик";
 
+    // Тест поиска письма по ключевому слову в теме. Открывается строка поиска и вводится запрос по теме письма.
+    // Поиск выполняется по заданному ключевому слову с параметром "subject:". После выполнения поиска ожидается
+    // отображение результатов. В конце теста осуществляется проверка наличия в результатах поиска письма с ожидаемой темой.
     @Test
     public void test7_searchEmailBySubjectKeyword() {
         logger.info("Тест 7: Проверка поиска письма по ключевому слову в теме");
@@ -42,6 +41,10 @@ public class TestsOfAdditionalFunctions extends BaseTest {
         logger.info("Тест 7 завершён успешно");
     }
 
+    // Тест создания папки и перемещения письма.
+    // Создаётся новая папка "Проекты", после чего выбирается письмо из списка входящих
+    // и перемещается в созданную папку. В конце теста осуществляется проверка:
+    // в папке "Проекты" отображается письмо с указанной темой.
     @Test
     public void test9_createFolderAndMoveLetter() {
         logger.info("ТЕСТ 9: Создание папки и перемещение письма");
@@ -78,6 +81,10 @@ public class TestsOfAdditionalFunctions extends BaseTest {
         logger.info("ТЕСТ 9 ЗАВЕРШЁН УСПЕШНО");
     }
 
+    // Тест сохранения письма в черновиках.
+    // Создаётся новое письмо, заполняются поля получателя, темы и текста.
+    // После закрытия окна создания письма проверяется, что письмо сохранилось
+    // в разделе "Черновики" и все заполненные данные были сохранены.
     @Test
     public void test10_DraftSaving() {
         logger.info("ТЕСТ 10: Сохранение письма в черновиках");

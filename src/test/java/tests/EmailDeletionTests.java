@@ -9,7 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmailDeletionTests extends BaseTest {
 
-    // ===== Тестовые данные (константы) =====
     private static final String LETTER_TO_DELETE = "Удалить это письмо";
     private static final String LETTER_TO_RESTORE = "Письмо для восстановления";
 

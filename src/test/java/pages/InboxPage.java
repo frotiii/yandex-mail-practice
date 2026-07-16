@@ -7,7 +7,6 @@ import elements.Checkbox;
 // Класс, представляющий страницу "Входящие" и основные действия со списком писем
 public class InboxPage extends BasePage {
 
-    // ===== XPath и другие локаторы (константы) =====
     private static final String COMPOSE_BUTTON_XPATH = "//button[@aria-label='Написать']";
     private static final String DRAFTS_BUTTON_XPATH = "//a[@href='#draft']";
     private static final String SENT_BUTTON_XPATH = "//a[@href='#sent']";
@@ -32,31 +31,25 @@ public class InboxPage extends BasePage {
                     "/ancestor::div[contains(@class,'MessageListItem__root')]" +
                     "//div[contains(@class,'MessageListItem__checkbox')]";
 
-    // тест 3
     private static final String LETTER_BY_SUBJECT = "//span[@title='%s']";
 
-    // тест 7
     private static final String SEARCH_RESULT_BY_SUBJECT =
             "//div[contains(@class,'MessageListItem__root')]" +
                     "[.//span[@title='%s']]";
 
-    // ===== Элементы страницы =====
     private final Button composeButton = Button.byXpath(COMPOSE_BUTTON_XPATH);
     private final Button draftsButton = Button.byXpath(DRAFTS_BUTTON_XPATH);
     private final Button sentButton = Button.byXpath(SENT_BUTTON_XPATH);
     private final Button deleteButton = Button.byXpath(DELETE_BUTTON_XPATH);
 
-    // тест 7
     private final Input searchInput = Input.byXpath(SEARCH_INPUT_XPATH);
     private final Button searchButton = Button.byXpath(SEARCH_BUTTON_XPATH);
 
-    // тест 9
     private final Button addFolderButton = Button.byXpath(ADD_FOLDER_BUTTON_XPATH);
     private final Input folderName = Input.byXpath(FOLDER_NAME_INPUT_XPATH);
     private final Button createFolderButton = Button.byXpath(CREATE_FOLDER_BUTTON_XPATH);
     private final Button moveToFolderButton = Button.byXpath(MOVE_TO_FOLDER_BUTTON_XPATH);
 
-    // ===== Методы =====
 
     // Нажимает кнопку "Написать" и возвращает страницу создания письма
     public ComposePage clickCompose() {
