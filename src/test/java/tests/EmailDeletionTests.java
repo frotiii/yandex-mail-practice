@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import pages.TrashPage;
 
 import static com.codeborne.selenide.Selenide.screenshot;
-import static com.codeborne.selenide.Selenide.sleep;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmailDeletionTests extends BaseTest {
@@ -28,7 +27,6 @@ public class EmailDeletionTests extends BaseTest {
         TrashPage trashPage = inboxPage.openTrash();
         logger.info("4. Открыта папка 'Удалённые'");
 
-        sleep(1000);
         assertThat(trashPage.isLetterPresent(LETTER_TO_DELETE)).isTrue();
         logger.info("5. Проверка: письмо появилось в Корзине");
 
@@ -51,18 +49,15 @@ public class EmailDeletionTests extends BaseTest {
         trashPage.clickMore();
         logger.info("3. Нажата кнопка 'Ещё'");
 
-        sleep(500);
         trashPage.hoverFolderMenu();
         logger.info("4. Выбран пункт 'В папку'");
 
-        sleep(500);
         trashPage.selectInboxFolder();
         logger.info("5. Выбрана папка 'Входящие'");
 
         inboxPage.openInbox();
         logger.info("6. Открыта папка 'Входящие'");
 
-        sleep(1000);
         assertThat(inboxPage.isLetterPresent(LETTER_TO_RESTORE)).isTrue();
         logger.info("7. Проверка: письмо появилось во Входящих");
 
