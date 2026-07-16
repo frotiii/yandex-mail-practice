@@ -8,6 +8,10 @@ import static com.codeborne.selenide.Selenide.sleep;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EmailDeletionTests extends BaseTest {
+
+    private static final String LETTER_TO_DELETE = "Удалить это письмо";
+    private static final String LETTER_TO_RESTORE = "Письмо для восстановления";
+
     @Test
     public void test5_deleteEmail() {
         logger.info("Тест 5. Проверка удаления письма");
@@ -15,8 +19,8 @@ public class EmailDeletionTests extends BaseTest {
         inboxPage.isInboxDisplayed();
         logger.info("1. Открыта папка 'Входящие'");
 
-        inboxPage.selectLetter("Удалить это письмо");
-        logger.info("2. Выбрано письмо 'Удалить это письмо'");
+        inboxPage.selectLetter(LETTER_TO_DELETE);
+        logger.info("2. Выбрано письмо '{}'", LETTER_TO_DELETE);
 
         inboxPage.clickDelete();
         logger.info("3. Нажата кнопка 'Удалить'");
@@ -25,7 +29,7 @@ public class EmailDeletionTests extends BaseTest {
         logger.info("4. Открыта папка 'Удалённые'");
 
         sleep(1000);
-        assertThat(trashPage.isLetterPresent("Удалить это письмо")).isTrue();
+        assertThat(trashPage.isLetterPresent(LETTER_TO_DELETE)).isTrue();
         logger.info("5. Проверка: письмо появилось в Корзине");
 
         String screenshotPath = screenshot("test5_deleteEmail");
@@ -41,8 +45,8 @@ public class EmailDeletionTests extends BaseTest {
         TrashPage trashPage = inboxPage.openTrash();
         logger.info("1. Открыта папка 'Удалённые'");
 
-        trashPage.selectLetter("Письмо для восстановления");
-        logger.info("2. Выбрано письмо 'Письмо для восстановления'");
+        trashPage.selectLetter(LETTER_TO_RESTORE);
+        logger.info("2. Выбрано письмо '{}'", LETTER_TO_RESTORE);
 
         trashPage.clickMore();
         logger.info("3. Нажата кнопка 'Ещё'");
@@ -59,12 +63,12 @@ public class EmailDeletionTests extends BaseTest {
         logger.info("6. Открыта папка 'Входящие'");
 
         sleep(1000);
-        assertThat(inboxPage.isLetterPresent("Письмо для восстановления")).isTrue();
+        assertThat(inboxPage.isLetterPresent(LETTER_TO_RESTORE)).isTrue();
         logger.info("7. Проверка: письмо появилось во Входящих");
 
         String screenshotPath = screenshot("test6_restoreEmail");
         logger.info("Скриншот сохранён: {}", screenshotPath);
 
-        logger.info("Тест 6 успешно заверше");
+        logger.info("Тест 6 успешно завершен");
     }
 }

@@ -9,9 +9,15 @@ import static com.codeborne.selenide.Selenide.screenshot;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TestsOfAdditionalFunctions extends BaseTest {
-    // тест 7
+
     private static final String SEARCH_KEYWORD = "Тестирование";
     private static final String SEARCH_SUBJECT = "Важное сообщение по проекту Тестирование";
+
+    private static final String FOLDER_NAME = "Проекты";
+    private static final String LETTER_TO_MOVE = "Переместить в папку";
+
+    private static final String DRAFT_SUBJECT = "Черновик";
+    private static final String DRAFT_BODY = "Это письмо сохранено как черновик";
 
     // Тест поиска письма по ключевому слову в теме. Открывается строка поиска и вводится запрос по теме письма.
     // Поиск выполняется по заданному ключевому слову с параметром "subject:". После выполнения поиска ожидается
@@ -24,11 +30,13 @@ public class TestsOfAdditionalFunctions extends BaseTest {
         inboxPage.openSearch().fillSearch("subject:" + SEARCH_KEYWORD);
 
         logger.info("2. Запускаем поиск клавишей Enter");
+        // Поиск запускается автоматически после ввода
 
         logger.info("3. Ожидаем результаты поиска");
 
         assertThat(inboxPage.isSearchResultPresent(SEARCH_SUBJECT))
-                .as("В результатах поиска должно отображаться письмо с темой '%s'", SEARCH_SUBJECT).isTrue();
+                .as("В результатах поиска должно отображаться письмо с темой '%s'", SEARCH_SUBJECT)
+                .isTrue();
 
         logger.info("Тест 7 завершён успешно");
     }
@@ -44,27 +52,28 @@ public class TestsOfAdditionalFunctions extends BaseTest {
         inboxPage.clickAddFolder();
         logger.info("1. Нажата кнопка создания папки");
 
-        inboxPage.fillFolderName("Проекты");
-        logger.info("2. Введено название папки: 'Проекты'");
+        inboxPage.fillFolderName(FOLDER_NAME);
+        logger.info("2. Введено название папки: '{}'", FOLDER_NAME);
 
         inboxPage.clickCreateFolder();
         logger.info("3. Папка создана");
 
-        inboxPage.selectLetter("Переместить в папку");
-        logger.info("4. Выбрано письмо 'Переместить в папку'");
+        inboxPage.selectLetter(LETTER_TO_MOVE);
+        logger.info("4. Выбрано письмо '{}'", LETTER_TO_MOVE);
 
         inboxPage.clickMoveToFolder();
         logger.info("5. Нажата кнопка 'В папку'");
 
-        inboxPage.selectFolder("Проекты");
-        logger.info("6. Выбрана папка 'Проекты'");
+        inboxPage.selectFolder(FOLDER_NAME);
+        logger.info("6. Выбрана папка '{}'", FOLDER_NAME);
 
-        FolderPage folderPage = inboxPage.openFolder("Проекты");
-        logger.info("7. Открыта папка 'Проекты'");
+        FolderPage folderPage = inboxPage.openFolder(FOLDER_NAME);
+        logger.info("7. Открыта папка '{}'", FOLDER_NAME);
 
-        assertThat(folderPage.isLetterDisplayed("Переместить в папку"))
+        assertThat(folderPage.isLetterDisplayed(LETTER_TO_MOVE))
+                .as("Письмо должно отображаться в папке '%s'", FOLDER_NAME)
                 .isTrue();
-        logger.info("8. Проверка: письмо отображается в папке 'Проекты'");
+        logger.info("8. Проверка: письмо отображается в папке '{}'", FOLDER_NAME);
 
         String screenshotPath = screenshot("test9_createFolderAndMoveLetter");
         logger.info("Скриншот сохранён: {}", screenshotPath);
@@ -86,10 +95,10 @@ public class TestsOfAdditionalFunctions extends BaseTest {
         composePage.fillTo(LOGIN);
         logger.info("2. Заполнено поле 'Кому': {}", LOGIN);
 
-        composePage.fillSubject("Черновик");
-        logger.info("3. Заполнено поле 'Тема': Черновик");
+        composePage.fillSubject(DRAFT_SUBJECT);
+        logger.info("3. Заполнено поле 'Тема': {}", DRAFT_SUBJECT);
 
-        composePage.fillBody("Это письмо сохранено как черновик");
+        composePage.fillBody(DRAFT_BODY);
         logger.info("4. Заполнен текст письма");
 
         inboxPage = composePage.closeCompose();
@@ -98,19 +107,21 @@ public class TestsOfAdditionalFunctions extends BaseTest {
         DraftsPage draftsPage = inboxPage.openDrafts();
         logger.info("6. Открыт раздел 'Черновики'");
 
-        assertThat(draftsPage.isDraftPresent("Черновик")).isTrue();
-        logger.info("7. Проверка: черновик с темой 'Черновик' присутствует");
+        assertThat(draftsPage.isDraftPresent(DRAFT_SUBJECT))
+                .as("Черновик с темой '%s' должен присутствовать", DRAFT_SUBJECT)
+                .isTrue();
+        logger.info("7. Проверка: черновик с темой '{}' присутствует", DRAFT_SUBJECT);
 
-        ComposePage draft = draftsPage.openDraft("Черновик");
+        ComposePage draft = draftsPage.openDraft(DRAFT_SUBJECT);
         logger.info("8. Открыт черновик");
 
         assertThat(draft.getTo()).contains(LOGIN);
         logger.info("9. Проверка поля 'Кому': {}", LOGIN);
 
-        assertThat(draft.getSubject()).isEqualTo("Черновик");
+        assertThat(draft.getSubject()).isEqualTo(DRAFT_SUBJECT);
         logger.info("10. Проверка поля 'Тема' сохранена");
 
-        assertThat(draft.getBody()).contains("Это письмо сохранено как черновик");
+        assertThat(draft.getBody()).contains(DRAFT_BODY);
         logger.info("11. Проверка текста письма сохранена");
 
         String screenshotPath = screenshot("test10_DraftSaving");

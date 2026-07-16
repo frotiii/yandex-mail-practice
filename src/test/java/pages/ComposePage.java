@@ -6,17 +6,24 @@ import elements.Input;
 // Класс, представляющий страницу создания нового письма
 public class ComposePage extends BasePage {
 
-    private final Input toInput = Input.byXpath("//div[@aria-label='Кому']");
-    private final Input subjectInput = Input.byName("subject");
-    private final Input body = Input.byClass("cke_editable");
+    private static final String TO_INPUT_XPATH = "//div[@aria-label='Кому']";
+    private static final String SUBJECT_INPUT_NAME = "subject";
+    private static final String BODY_CLASS = "cke_editable";
+    private static final String CLOSE_BUTTON_XPATH = "//button[@aria-label='Закрыть']";
+    private static final String SEND_BUTTON_XPATH = "//button[contains(@class, 'Button2 Button2_view_action Button2_size_l')]";
+    private static final String FILE_INPUT_XPATH = "//input[contains(@class, 'qa-Compose-FileInput2')]";
+    private static final String RECIPIENT_XPATH = "//*[@data-email='deikinaang0707@yandex.ru']" +
+            " | //div[@aria-label='Кому'][contains(.,'deikinaang0707@yandex.ru')]";
 
-    private final Button closeButton = Button.byXpath("//button[@aria-label='Закрыть']");
-    private final Button sendButton = Button.byXpath("//button[contains(@class, 'Button2 Button2_view_action Button2_size_l')]");
-    private final Input fileInput = Input.byXpath("//input[contains(@class, 'qa-Compose-FileInput2')]");
+    private final Input toInput = Input.byXpath(TO_INPUT_XPATH);
+    private final Input subjectInput = Input.byName(SUBJECT_INPUT_NAME);
+    private final Input body = Input.byClass(BODY_CLASS);
 
-    // тест 4
-    private final Button recipient = Button.byXpath("//*[@data-email='deikinaang0707@yandex.ru']" +
-            " | //div[@aria-label='Кому']" + "[contains(.,'deikinaang0707@yandex.ru')]");
+    private final Button closeButton = Button.byXpath(CLOSE_BUTTON_XPATH);
+    private final Button sendButton = Button.byXpath(SEND_BUTTON_XPATH);
+    private final Input fileInput = Input.byXpath(FILE_INPUT_XPATH);
+
+    private final Button recipient = Button.byXpath(RECIPIENT_XPATH);
 
     // Заполняет поле "Кому" указанным адресом электронной почты
     public void fillTo(String email) {

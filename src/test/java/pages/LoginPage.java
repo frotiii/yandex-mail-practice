@@ -5,7 +5,6 @@ import elements.Input;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.open;
@@ -15,15 +14,26 @@ import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 public class LoginPage extends BasePage {
 
     private static final Logger log = LogManager.getLogger(LoginPage.class);
-    private final Button moreButton = Button.byXpath("//button[@data-testid='split-add-user-more-button']");
-    private final Button loginModeButton = Button.byXpath("//*[@data-testid='menu-option-switchToLogin']");
-    private final Input loginInput = Input.byXpath("//input[@data-testid='text-field-input']");
-    private final Button nextLoginButton = Button.byXpath("//button[@data-testid='split-add-user-next-login']");
-    private final Input passwordInput = Input.byXpath("//input[@placeholder='Пароль']");
-    private final Button passwordNextButton = Button.byXpath("//button[@data-testid='password-next']");
-    private final Button passwordLoginButton = Button.byXpath("//button[@data-testid='password-btn']");
-    private final Button webauthnLaterButton = Button.byXpath("//button[@data-testid='webauthn-reg-later-button']");
-    private final Button identificationSkipButton = Button.byXpath("//button[@data-testid='identification-promo-start-skip-btn']");
+
+    private static final String MORE_BUTTON_XPATH = "//button[@data-testid='split-add-user-more-button']";
+    private static final String LOGIN_MODE_BUTTON_XPATH = "//*[@data-testid='menu-option-switchToLogin']";
+    private static final String LOGIN_INPUT_XPATH = "//input[@data-testid='text-field-input']";
+    private static final String NEXT_LOGIN_BUTTON_XPATH = "//button[@data-testid='split-add-user-next-login']";
+    private static final String PASSWORD_INPUT_XPATH = "//input[@placeholder='Пароль']";
+    private static final String PASSWORD_NEXT_BUTTON_XPATH = "//button[@data-testid='password-next']";
+    private static final String PASSWORD_LOGIN_BUTTON_XPATH = "//button[@data-testid='password-btn']";
+    private static final String WEBAUTHN_LATER_BUTTON_XPATH = "//button[@data-testid='webauthn-reg-later-button']";
+    private static final String IDENTIFICATION_SKIP_BUTTON_XPATH = "//button[@data-testid='identification-promo-start-skip-btn']";
+
+    private final Button moreButton = Button.byXpath(MORE_BUTTON_XPATH);
+    private final Button loginModeButton = Button.byXpath(LOGIN_MODE_BUTTON_XPATH);
+    private final Input loginInput = Input.byXpath(LOGIN_INPUT_XPATH);
+    private final Button nextLoginButton = Button.byXpath(NEXT_LOGIN_BUTTON_XPATH);
+    private final Input passwordInput = Input.byXpath(PASSWORD_INPUT_XPATH);
+    private final Button passwordNextButton = Button.byXpath(PASSWORD_NEXT_BUTTON_XPATH);
+    private final Button passwordLoginButton = Button.byXpath(PASSWORD_LOGIN_BUTTON_XPATH);
+    private final Button webauthnLaterButton = Button.byXpath(WEBAUTHN_LATER_BUTTON_XPATH);
+    private final Button identificationSkipButton = Button.byXpath(IDENTIFICATION_SKIP_BUTTON_XPATH);
 
     // Возвращает экземпляр WebDriverWait с таймаутом 15 секунд для явных ожиданий
     private WebDriverWait waitForPage() {

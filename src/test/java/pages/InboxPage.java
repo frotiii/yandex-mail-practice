@@ -7,22 +7,22 @@ import elements.Checkbox;
 // Класс, представляющий страницу "Входящие" и основные действия со списком писем
 public class InboxPage extends BasePage {
 
-    private final Button composeButton = Button.byXpath("//button[@aria-label='Написать']");
-    private final Button draftsButton = Button.byXpath("//a[@href='#draft']");
-    private final Button sentButton = Button.byXpath("//a[@href='#sent']");
-    private final Button deleteButton = Button.byXpath("//button[@data-id='delete']");
+    private static final String COMPOSE_BUTTON_XPATH = "//button[@aria-label='Написать']";
+    private static final String DRAFTS_BUTTON_XPATH = "//a[@href='#draft']";
+    private static final String SENT_BUTTON_XPATH = "//a[@href='#sent']";
+    private static final String DELETE_BUTTON_XPATH = "//button[@data-id='delete']";
 
-    // тест 7
-    private final Input searchInput = Input.byXpath("//input[@placeholder='Поиск' or @aria-label='Поиск']");
-    private final Button searchButton = Button.byXpath("//button[@aria-label='Поиск']");
+    private static final String SEARCH_INPUT_XPATH = "//input[@placeholder='Поиск' or @aria-label='Поиск']";
+    private static final String SEARCH_BUTTON_XPATH = "//button[@aria-label='Поиск']";
 
-    // тест 9
-    private final Button addFolderButton = Button.byXpath("//button[@aria-label='Создать папку']");
-    private final Input folderName = Input.byXpath("//input[@placeholder='Название']");
-    private final Button createFolderButton =
-            Button.byXpath("//button[contains(@class,'qa-Toolbar-FolderModal-ActionButton')]");
-    private final Button moveToFolderButton = Button.byXpath("//button[@id='folder']");
+    private static final String ADD_FOLDER_BUTTON_XPATH = "//button[@aria-label='Создать папку']";
+    private static final String FOLDER_NAME_INPUT_XPATH = "//input[@placeholder='Название']";
+    private static final String CREATE_FOLDER_BUTTON_XPATH =
+            "//button[contains(@class,'qa-Toolbar-FolderModal-ActionButton')]";
+    private static final String MOVE_TO_FOLDER_BUTTON_XPATH = "//button[@id='folder']";
 
+    private static final String TRASH_LINK_XPATH = "//a[@href='#trash']";
+    private static final String INBOX_LINK_XPATH = "//a[@href='#tabs/relevant']";
 
     private static final String FOLDER_IN_MENU = "//div[@data-testid='folders-menu_tree_item' and @aria-label='%s']";
     private static final String FOLDER = "//div[@aria-label='%s, папка']";
@@ -31,13 +31,25 @@ public class InboxPage extends BasePage {
                     "/ancestor::div[contains(@class,'MessageListItem__root')]" +
                     "//div[contains(@class,'MessageListItem__checkbox')]";
 
-    // тест 3
     private static final String LETTER_BY_SUBJECT = "//span[@title='%s']";
 
-    // тест 7
     private static final String SEARCH_RESULT_BY_SUBJECT =
             "//div[contains(@class,'MessageListItem__root')]" +
                     "[.//span[@title='%s']]";
+
+    private final Button composeButton = Button.byXpath(COMPOSE_BUTTON_XPATH);
+    private final Button draftsButton = Button.byXpath(DRAFTS_BUTTON_XPATH);
+    private final Button sentButton = Button.byXpath(SENT_BUTTON_XPATH);
+    private final Button deleteButton = Button.byXpath(DELETE_BUTTON_XPATH);
+
+    private final Input searchInput = Input.byXpath(SEARCH_INPUT_XPATH);
+    private final Button searchButton = Button.byXpath(SEARCH_BUTTON_XPATH);
+
+    private final Button addFolderButton = Button.byXpath(ADD_FOLDER_BUTTON_XPATH);
+    private final Input folderName = Input.byXpath(FOLDER_NAME_INPUT_XPATH);
+    private final Button createFolderButton = Button.byXpath(CREATE_FOLDER_BUTTON_XPATH);
+    private final Button moveToFolderButton = Button.byXpath(MOVE_TO_FOLDER_BUTTON_XPATH);
+
 
     // Нажимает кнопку "Написать" и возвращает страницу создания письма
     public ComposePage clickCompose() {
@@ -105,13 +117,13 @@ public class InboxPage extends BasePage {
 
     // Переходит в папку "Корзина" и возвращает соответствующую страницу
     public TrashPage openTrash() {
-        Button.byXpath("//a[@href='#trash']").click();
+        Button.byXpath(TRASH_LINK_XPATH).click();
         return new TrashPage();
     }
 
     // Открывает папку "Входящие" (переход по соответствующей ссылке)
     public void openInbox() {
-        Button.byXpath("//a[@href='#tabs/relevant']").click();
+        Button.byXpath(INBOX_LINK_XPATH).click();
     }
 
     //тест 3
@@ -135,9 +147,7 @@ public class InboxPage extends BasePage {
 
     // Проверяет, отображается ли письмо с указанной темой в результатах поиска
     public boolean isSearchResultPresent(String subject) {
-        return Button.byXpath(
-                String.format(SEARCH_RESULT_BY_SUBJECT, subject)
-        ).isDisplayed();
+        return Button.byXpath(String.format(SEARCH_RESULT_BY_SUBJECT, subject)).isDisplayed();
     }
 
     // Активирует строку поиска и возвращает текущий экземпляр страницы
